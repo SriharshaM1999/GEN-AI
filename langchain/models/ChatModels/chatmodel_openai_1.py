@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # creating an llm instance
-llm = ChatOpenAI(model = "gpt-4", temperature=0.7, max_completion_tokens=30)
+llm = ChatOpenAI(model = "gpt-4", temperature=0.7, max_completion_tokens=300)
 
 inp = input("Query? ")
 
@@ -48,8 +48,9 @@ Point 3:
 response = llm.invoke(input=inp, temperature=0.9, max_completion_tokens=100, top_p=0.5)
 
 temperature: Controls the randomness of the output. 
-        Higher values (e.g., 0.9) make the output more random and creative,
-        while lower values (e.g., 0.2) make it more focused and deterministic.
+      if 0/ near 0 : then model returns the same output for the same input, which is more deterministic.
+     if >=1 : then model returns more random output, which is more creative, for the same input
+
 
 
 max_completion_tokens: Sets the maximum number of tokens in the output.
