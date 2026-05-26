@@ -7,13 +7,14 @@ load_dotenv()
 # creating an llm instance
 llm = ChatOpenAI(model = "gpt-4", temperature=0.7, max_completion_tokens=300)
 
-inp = input("Query? ")
+inp = input("Enter your query ? \n")
 
 
 #invoking the model with the query
 response = llm.invoke(input=inp)
 
-print(response)
+# to know more about the response format, uncomment the below line.
+# print(response)
 
 # to see the content of the response, we can do response.content
 print(response.content)
@@ -50,7 +51,7 @@ response = llm.invoke(input=inp, temperature=0.9, max_completion_tokens=100, top
 temperature: Controls the randomness of the output. 
       if 0/ near 0 : then model returns the same output for the same input, which is more deterministic.
      if >=1 : then model returns more random output, which is more creative, for the same input
-
+     as temperature increases, the output becomes more diverse/creative or different for the same input.
 
 
 max_completion_tokens: Sets the maximum number of tokens in the output.
