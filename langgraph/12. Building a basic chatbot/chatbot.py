@@ -5,12 +5,21 @@ from dotenv import load_dotenv
 from typing import TypedDict, Annotated
 from langgraph.graph.message import BaseMessage, add_messages
 
+
+#pip3 install langgraph-checkpoint-sqlite -> run this cmd before running this file.
+from langgraph.checkpoint.sqlite import SqliteSaver
+import sqlite3 # to create and play with sqlite databases
+
 load_dotenv()
 
 llm = ChatOpenAI(model='gpt-4o', max_completion_tokens=300, temperature=0.1)
 
 
-checkpointer = InMemorySaver()
+# checkpointer = InMemorySaver()
+
+# check_same_thread allows multiple threads to work on the same db, not the one that creates the db
+conn = sqlite3.connect(database='chatbot.db', check_same_thread=False) 
+checkpointer = SqliteSaver(conn)
 
 class ChatState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
@@ -27,6 +36,16 @@ graph.add_edge(START, "chat_node")
 graph.add_edge("chat_node", END)
 
 chatbot = graph.compile(checkpointer=checkpointer)
+
+def get_all_threads():
+    chekpointers = checkpointer.list(None)  #returns all the checkpoints / generator obj
+    all_threads = set();
+    for checkpoint in chekpointers:
+        thread_id = checkpoint.config['configurable']['thread_id']
+        all_threads.add(thread_id);
+
+    return list(all_threads)
+
 
 # configuration = {"configurable": {"thread_id": 1}}
 
