@@ -91,6 +91,17 @@ user_input = st.chat_input('Type here')
 # configuration.
 CONFIG = {"configurable": {"thread_id": st.session_state['thread_id']}} # Step 4.) adding the dynamic thread_id.
 
+# for langsmith, to group the traces of the same thread replace above CONFIG with below
+
+CONFIG = {
+    "configurable": {"thread_id": st.session_state['thread_id']},
+    "metadata": { # This is important to be passed
+        "thread_id": st.session_state["thread_id"],
+    },
+    "run_name": "chat_turn"
+ } # Step 4.) adding the dynamic thread_id.
+
+
 # on user input
 if user_input:
     st.session_state['message_history'].append({'role':'user', 'content': user_input})
