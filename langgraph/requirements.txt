@@ -5,3 +5,6 @@ langchain_community
 ddgs
 dotenv
 streamlit
+fastmcp
+langchain-mcp-adapters
+uv
