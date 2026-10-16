@@ -30,3 +30,12 @@ scikit-learn
 
 # ui
 streamlit
+
+# vectorstore
+chromadb
+
+
+# new doc_loaders
+langchain_docling
+docling_parse
+langchain_text_splitter

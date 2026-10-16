@@ -6,3 +6,5 @@
 .langgraph_api/
 .env
 *.pyc
+*.bin
+*chroma_db*
